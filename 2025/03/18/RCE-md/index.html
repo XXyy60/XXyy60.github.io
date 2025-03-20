@@ -6,18 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="RCE rce 题目，常用的几个系统命令执行函数system()passthru()exec()shell_exec()popen()proc_open()pcntl_exec() [SWPUCTF 2021 新生赛]babyrce空格可以用&lt;    &lt;&gt;      %20           %09    $IFS$9(1-9)    ${IFS}      $IFS代替">
+    <meta name="description" content="RCE rce 题目，常用的几个系统命令执行函数system()passthru()exec()shell_exec()popen()proc_open()pcntl_exec() [SWPUCTF 2021 新生赛]babyrce空格可以用   $IFS$9(1-9)    ${IFS}      $IFS代替          根据代码要往里面写cookie[admin]&#x3D;1,用ha">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RCE">
 <meta property="og:url" content="http://example.com/2025/03/18/RCE-md/index.html">
 <meta property="og:site_name" content="XY的奇妙小屋">
-<meta property="og:description" content="RCE rce 题目，常用的几个系统命令执行函数system()passthru()exec()shell_exec()popen()proc_open()pcntl_exec() [SWPUCTF 2021 新生赛]babyrce空格可以用&lt;    &lt;&gt;      %20           %09    $IFS$9(1-9)    ${IFS}      $IFS代替">
+<meta property="og:description" content="RCE rce 题目，常用的几个系统命令执行函数system()passthru()exec()shell_exec()popen()proc_open()pcntl_exec() [SWPUCTF 2021 新生赛]babyrce空格可以用   $IFS$9(1-9)    ${IFS}      $IFS代替          根据代码要往里面写cookie[admin]&#x3D;1,用ha">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/XXyy60/image/%25E5%25B1%258F%25E5%25B9%2595%25E6%2588%25AA%25E5%259B%25BE%25202025-03-16%2520163230.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/XXyy60/image/%25E5%25B1%258F%25E5%25B9%2595%25E6%2588%25AA%25E5%259B%25BE%25202025-03-16%2520163254.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/XXyy60/image/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-18%20203450.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/XXyy60/image/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-18%20203743.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/XXyy60/image/%25E5%25B1%258F%25E5%25B9%2595%25E6%2588%25AA%25E5%259B%25BE%25202025-03-17%2520135528.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/XXyy60/image/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-18%20205126.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/XXyy60/image/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-17%20135528.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/XXyy60/image/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-18%20210618-1742303237196-5.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/XXyy60/image/%25E5%25B1%258F%25E5%25B9%2595%25E6%2588%25AA%25E5%259B%25BE%25202025-03-17%2520142209.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/XXyy60/image/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-17%20142445.png">
@@ -30,7 +31,7 @@
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/XXyy60/image/%25E5%25B1%258F%25E5%25B9%2595%25E6%2588%25AA%25E5%259B%25BE%25202025-03-17%2520182112.png">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/XXyy60/image/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-17%20182810.png">
 <meta property="article:published_time" content="2025-03-17T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-03-18T13:32:02.832Z">
+<meta property="article:modified_time" content="2025-03-20T12:16:30.006Z">
 <meta property="article:author" content="XY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/XXyy60/image/%25E5%25B1%258F%25E5%25B9%2595%25E6%2588%25AA%25E5%259B%25BE%25202025-03-16%2520163230.png">
@@ -193,7 +194,7 @@
   <div class="content" itemprop="articleBody">
     <p>RCE</p>
 <p>rce 题目，常用的几个系统命令执行函数<br>system()<br>passthru()<br>exec()<br>shell_exec()<br>popen()<br>proc_open()<br>pcntl_exec()</p>
-<h5 id="SWPUCTF-2021-新生赛-babyrce"><a href="#SWPUCTF-2021-新生赛-babyrce" class="headerlink" title="[SWPUCTF 2021 新生赛]babyrce"></a>[SWPUCTF 2021 新生赛]babyrce</h5><p>空格可以用&lt;    &lt;&gt;      %20           %09    $IFS$9(1-9)    ${IFS}      $IFS代替         </p>
+<h5 id="SWPUCTF-2021-新生赛-babyrce"><a href="#SWPUCTF-2021-新生赛-babyrce" class="headerlink" title="[SWPUCTF 2021 新生赛]babyrce"></a>[SWPUCTF 2021 新生赛]babyrce</h5><p>空格可以用   $IFS$9(1-9)    ${IFS}      $IFS代替         </p>
 <p>根据代码要往里面写cookie[admin]&#x3D;1,用hackbar写</p>
 <p><img src="https://cdn.jsdelivr.net/gh/XXyy60/image/%25E5%25B1%258F%25E5%25B9%2595%25E6%2588%25AA%25E5%259B%25BE%25202025-03-16%2520163230.png"></p>
 <p>访问文件<img src="https://cdn.jsdelivr.net/gh/XXyy60/image/%25E5%25B1%258F%25E5%25B9%2595%25E6%2588%25AA%25E5%259B%25BE%25202025-03-16%2520163254.png"></p>
@@ -202,10 +203,10 @@
 <p><img src="https://cdn.jsdelivr.net/gh/XXyy60/image/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-18%20203450.png"></p>
 <p>访问fillaaaaaaggggggg文件可以得到flag            ?url&#x3D;cat$IFS&#x2F;flllllaaaaaaggggggg</p>
 <p><img src="https://cdn.jsdelivr.net/gh/XXyy60/image/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-18%20203743.png"></p>
-<h5 id="UUCTF-2022-新生赛-ez-rce"><a href="#UUCTF-2022-新生赛-ez-rce" class="headerlink" title="[UUCTF 2022 新生赛]ez_rce"></a>[UUCTF 2022 新生赛]ez_rce</h5><p>![](RCE&#x2F;屏幕截图 2025-03-18 205126.png)</p>
+<h5 id="UUCTF-2022-新生赛-ez-rce"><a href="#UUCTF-2022-新生赛-ez-rce" class="headerlink" title="[UUCTF 2022 新生赛]ez_rce"></a>[UUCTF 2022 新生赛]ez_rce</h5><p><img src="https://cdn.jsdelivr.net/gh/XXyy60/image/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-18%20205126.png"></p>
 <p>代码审计发现好多都被过滤，没有过滤掉&#96;&#96; （反引号）导致，被反引号包裹的字符串会被解析成命令执行，又没有过滤掉print(),printf(),print_r(),它等效于echo. 更没有过滤nl,uniq等文件读取函数.使用？&gt;</p>
 <p>构造url&#x2F;?code&#x3D;print_r(<code>dir+/</code>);</p>
-<p><img src="https://cdn.jsdelivr.net/gh/XXyy60/image/%25E5%25B1%258F%25E5%25B9%2595%25E6%2588%25AA%25E5%259B%25BE%25202025-03-17%2520135528.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/XXyy60/image/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-17%20135528.png"></p>
 <p>访问文件&#x2F;?code&#x3D;print_r(<code>nl+/fffffffffflagafag</code>);得到flag</p>
 <h5 id="SWPUCTF-2021-新生赛-hardrce"><a href="#SWPUCTF-2021-新生赛-hardrce" class="headerlink" title="[SWPUCTF 2021 新生赛]hardrce"></a>[SWPUCTF 2021 新生赛]hardrce</h5><p><img src="https://cdn.jsdelivr.net/gh/XXyy60/image/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-18%20210618-1742303237196-5.png"></p>
 <p>审计题目要求  ：使用get方式请求给wllm传参<br>使用preg_match函数正则匹配过滤掉了一些符号<br>以及 [a-zA-Z] 即所有的大小写字母<br>如果传入内容满足这些条件则会执行eval函数</p>
@@ -231,7 +232,7 @@
 <h5 id="Http协议—请求方式"><a href="#Http协议—请求方式" class="headerlink" title="Http协议—请求方式"></a>Http协议—请求方式</h5><p>进行bp抓包把GET请求方式改成CTFHUB得到flag</p>
 <p><img src="https://cdn.jsdelivr.net/gh/XXyy60/image/%25E5%25B1%258F%25E5%25B9%2595%25E6%2588%25AA%25E5%259B%25BE%25202025-03-17%2520182112.png"></p>
 <h5 id="HTTP协议—302跳转"><a href="#HTTP协议—302跳转" class="headerlink" title="HTTP协议—302跳转"></a>HTTP协议—302跳转</h5><p>进入页面根据提示跳转到 index.html未得到flag</p>
-<p>直接用 curl 访问 index.php 即可得到 flag</p>
+<p>在liunx系统中直接用 curl 访问 index.php 即可得到 flag</p>
 <p><img src="https://cdn.jsdelivr.net/gh/XXyy60/image/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202025-03-17%20182810.png"></p>
 
   </div>
